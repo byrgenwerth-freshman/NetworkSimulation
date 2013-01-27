@@ -1,0 +1,27 @@
+addedDemands: These are the demands that are added during the that time period.
+
+currentDemands: These are the demands that are currently being used by the network
+
+flag: If there is a failure with the solution to the equation, gets set to true.
+
+fullUtilized: It is the set of groups of paths that is completely utilized.
+
+getNumbers: Holds the regular expression that gets all the numbers in the in a line.
+
+networkPaths: Holds the number of groups of paths in the network.
+
+notUtilize: It is the set that holds the groups of paths that are not being used.
+
+partUtilized: It is the set that holds the partly utilized links.
+
+realNetwork: List of all the groups of paths in the network.
+
+secondLevelFlag: If second solution fails after the first solution, gets set to true
+
+secondTimesFlagged: List of the times with the second solution failure.
+
+timesFlagged: List of the time where there was a failure.
+
+virtualNetworks: A list of all the virtual networks. Includes a sublist of added paths.
+
+waitingDemands: These are the demands that are waiting for their start time period to be used.
