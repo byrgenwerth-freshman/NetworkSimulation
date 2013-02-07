@@ -156,6 +156,8 @@ while (len(demandManager.currentDemands) is not 0
     ###########################################################################
     #Solve equation
     ###########################################################################
+    #Print problem using write(filename, filetype='mps,lp,sav')
+    model.write("file.lp", filetype="lp")
     model.solve()
     ###########################################################################
     #Inspect Information
