@@ -30,6 +30,7 @@ def cplexCapacity(model, network, coef, capacityTable):
         coef = []
 
 
+#Rename so it reflects this relates to minimization.
 def createCPLEXmodel(network, PathDemands, capacityTable):
     model = cplex.Cplex()
 
@@ -46,6 +47,10 @@ def createCPLEXmodel(network, PathDemands, capacityTable):
     coef = []
     cplexCapacity(model, network, coef, capacityTable)
     return model
+
+#Create cplex model for new format
+
+#Create cplex model for load balancing
 
 def addUpDemands(currentDemands, Paths):
     PathDemands = []
