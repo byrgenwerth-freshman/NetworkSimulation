@@ -43,24 +43,22 @@ class Network:
 #can use that information.
 #This is for load balancing
 ###############################################################################
-#Note on 12/20/2012
+#Updated on 2/12/2013
 #This function needs to be fixed
-#	def setupNetworkLoad(outputfile, graphfile):
-#		both = getbteq(outputfile)
-#		equation = both[1]
-#		equation.append("Z")
-#		btvar = both[0]
-#		demandeq = both[2]
-#		coef = []
-#		capacity = getCapacityEq(graphfile, btvar)
-#		for vars in equation:
-#			if vars is "Z":
-#				coef.append(1)
-#			else:
-#				coef.append(0)
-#
-#
-#		return [coef, equation, demandeq, capacity]
+	def convertToLB(self):
+		networkLB = Network
+		networkLB.equation = self.equation
+		for i in range(len(networkLB.equation)):
+			networkLB.coef.append(0)
+		networkLB.coef.append(1)
+		networkLB.equation.append("Z")
+		networkLB.demandeq = self.demandeq
+		networkLB.capacity = self.capacity
+		for equations in networkLB.demandeq:
+			equations.append("Z")
+
+
+		return networkLB
 ###############################################################################
 
 ############################################################################## 
@@ -204,7 +202,8 @@ class Network:
 		return coef
 ###############################################################################
 #Print Network file 
-	def printNetwork(network):
+#This needs to be fixed 2/12/2013
+	def printNetwork(self):
 	    for i in range(len(network)):
 		if i is 0:
 		    print "Coefficient and Variable"
