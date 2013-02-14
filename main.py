@@ -18,6 +18,7 @@ from utilizationMGMTModule import *
 from linkReListMGMTModule import *
 from removeListMGMTModule import *
 from cplexLB import *
+from cplexMin import *
 ###############################################################################
 #GLOBALS
 #Figure out what id is?
@@ -117,11 +118,11 @@ print network.equation
 print network.demandeq
 print network.capacity
 #This is a test of convertToLb
-LBnetwork = network.convertToLB()
-print LBnetwork.coef
-print LBnetwork.equation
-print LBnetwork.demandeq
-print LBnetwork.capacity
+#LBnetwork = network.convertToLB()
+#print LBnetwork.coef
+#print LBnetwork.equation
+#print LBnetwork.demandeq
+#print LBnetwork.capacity
 ###############################################################################
 #Creating the  Capacity Table
 ###############################################################################
@@ -157,7 +158,7 @@ while (len(demandManager.currentDemands) is not 0
     ###########################################################################
     #Creating the CPLEX file
     ###########################################################################
-    model = createLBCPLEXmodel(LBnetwork, PathDemands, capacityTable)
+    model = createCPLEXmodel(network, PathDemands, capacityTable)
     #Sets up output streams
     setStream(model, "OUTPUT/cplexOut" + str(dynamic) + "-" + str(overbooking) + 
                 "-" + str(capacity) + "-" +str(overBookingValue))

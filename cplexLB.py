@@ -1,4 +1,3 @@
-#Put load balancing code in here
 import cplex
 from cplexSimModule import *
 
@@ -13,7 +12,6 @@ def createLBCPLEXmodel(network, PathDemands, capacityTable):
     model.variables.add(names = network.equation, obj = network.coef)
     #Give Cplex the demand equations                                           
     coef = []
-    print "***********************"
     cplexDemandLB(model, network, coef, PathDemands)
     #Give Cplex the capacity equations                                         
     coef = []
