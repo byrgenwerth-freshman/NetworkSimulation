@@ -48,7 +48,6 @@ elif len(sys.argv) is 9:
     demandFile = sys.argv[1]
     fin = open(demandFile, "r")
     outputFile = sys.argv[2]
-    fout = open(outputFile, "w")
     pathFile = sys.argv[3]
     finPaths = open(pathFile, "r")
     virtualNetworkFile = sys.argv[4]
@@ -57,6 +56,8 @@ elif len(sys.argv) is 9:
     overbooking = int(sys.argv[6])
     capacity = int(sys.argv[7])
     overBookingValue = int(sys.argv[8])
+    fout = open("OUTPUT/" + outputFile + str(dynamic) + "-" + str(overbooking) + 
+                "-" + str(capacity) + "-" +str(overBookingValue) + ".txt", "w")
 else:
     wrongInputErrorMessage()
     exit(2)
@@ -158,14 +159,16 @@ while (len(demandManager.currentDemands) is not 0
     ###########################################################################
     model = createLBCPLEXmodel(LBnetwork, PathDemands, capacityTable)
     #Sets up output streams
-    setStream(model, "output")
+    setStream(model, "OUTPUT/cplexOut" + str(dynamic) + "-" + str(overbooking) + 
+                "-" + str(capacity) + "-" +str(overBookingValue))
     model.get_problem_type()
     ###########################################################################
     #Solve equation
     ###########################################################################
     #Print problem using write(filename, filetype='mps,lp,sav')
-    model.write("file.lp", filetype="lp")
-    exit()
+    model.write("LP/" + outputFile + str(dynamic) + "-" + str(overbooking) + 
+                "-" + str(capacity) + "-" +str(overBookingValue) + "-" + 
+                str(time) +".lp", filetype="lp")
     model.solve()
     ###########################################################################
     #Inspect Information

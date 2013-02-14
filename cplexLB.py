@@ -8,7 +8,7 @@ def createLBCPLEXmodel(network, PathDemands, capacityTable):
     #Give it a name                                        
     model.set_problem_name("Topo1")
     #Setting it as minimiztion problem   
-    model.objective.set_sense(1)
+    model.objective.set_sense(-1)
     #Give Cplex the minimization equation                                      
     model.variables.add(names = network.equation, obj = network.coef)
     #Give Cplex the demand equations                                           
@@ -27,7 +27,6 @@ def cplexDemandLB(model, network, coef, PathDemands):
         		coef.append(- 1 * PathDemands[i])
         	else:
         		coef.append(1.0)
-        print coef
         addConstraint(model, network.demandeq[i], coef,
                       "demand{0}".format(i+1), 0, "E")
             #Making the coeficient list empty for the next equation            
