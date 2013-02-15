@@ -1,7 +1,5 @@
 import cplex
 
-
-
 def cplexCapacity(model, network, coef, capacityTable):
     for i in range(len(network.capacity)):
         for j in range(len(network.capacity[i][1])):

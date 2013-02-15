@@ -54,8 +54,9 @@ class Network:
 		networkLB.equation.append("Z")
 		networkLB.demandeq = self.demandeq
 		networkLB.capacity = self.capacity
-		for equations in networkLB.demandeq:
-			equations.append("Z")
+		for equations in networkLB.capacity:
+			print equations
+			equations[1].append("Z")
 
 
 		return networkLB
