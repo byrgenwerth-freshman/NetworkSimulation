@@ -4,6 +4,7 @@
 ###############################################################################
 import cplex
 import os
+#Check to see if "import re" can be taken out
 import re
 import sys
 from cplexSimModule import *
@@ -108,6 +109,7 @@ if os.path.isfile("kshortestpaths.txt") is False:
                                                      numbers[2]))
 finPaths.close()
 #Setting demand to 0
+#Is this needed?
 demand = 0
 ###############################################################################
 #Creating the network attributes object

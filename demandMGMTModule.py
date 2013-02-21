@@ -1,3 +1,4 @@
+#Also keep track of when demands are met and when they are not.
 import re
 from DemandClass import *
 
