@@ -54,6 +54,7 @@ int main(int argc, char *argv[])
 	sink = atoi(argv[2]);
 	K = atoi(argv[3]);
 
+	//Change this to the topology file
 	fin.open("SampleFatTreeTopology.txt"); // open input file
 
 	if(fin.fail()) //alert user if input file could not be opened
