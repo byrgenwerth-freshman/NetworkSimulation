@@ -7,19 +7,19 @@ import os
 #Check to see if "import re" can be taken out
 import re
 import sys
-from cplexSimModule import *
-from demandMGMTModule import *
-from startModule import *
-from visualizationModule import *
-from capacityMGMTModule import *
-from virtualNetworkMGMTModule import *
-from networkMGMTModule import *
-from realNetworkMGMTModule import *
-from utilizationMGMTModule import *
-from linkReListMGMTModule import *
-from removeListMGMTModule import *
-from cplexLB import *
-from cplexMin import *
+from networkModules.cplexSimModule import * 
+from networkModules.demandMGMTModule import *
+from networkModules.startModule import *
+from networkModules.visualizationModule import *
+from networkModules.capacityMGMTModule import *
+from networkModules.virtualNetworkMGMTModule import *
+from networkModules.networkMGMTModule import *
+from networkModules.realNetworkMGMTModule import *
+from networkModules.utilizationMGMTModule import *
+from networkModules.linkReListMGMTModule import *
+from networkModules.removeListMGMTModule import *
+from networkModules.cplexLB import *
+from networkModules.cplexMin import *
 ###############################################################################
 #GLOBALS
 #Figure out what id is?
