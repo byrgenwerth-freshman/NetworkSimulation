@@ -1,1 +1,1 @@
-/home/mattowens/Documents/gitRepos/NetworkSimulation/inputFiles/bcube/
+/home/mattowens/Documents/gitRepos/NetworkSimulation/inputFiles/bcube/ BCUBE DemandFile.txt output bcubePaths.txt virtualNetworks.txt 0 0 100 0 

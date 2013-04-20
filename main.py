@@ -58,25 +58,27 @@ elif len(sys.argv) is 2:
         if line.startswith('#'):
             pass
     #throw out blank lines or incomplete lines
-        elif(len(line.split()) != 9):
+        elif(len(line.split()) != 10):
             pass
         else:
             content.append(line.split())
     print content
     filePath = content[0][0]
     print content
-    demandFile = content[0][1]
+    binary = content[0][1]
+    demandFile = content[0][2]
     print demandFile
+
     fin = open(filePath + demandFile, "r")
-    outputFile = content[0][2]
-    pathFile = content[0][3]
+    outputFile = content[0][3]
+    pathFile = content[0][4]
     finPaths = open(filePath + pathFile, "r")
-    virtualNetworkFile = content[0][4]
+    virtualNetworkFile = content[0][5]
     finNetwork = open(filePath + virtualNetworkFile , "r")
-    dynamic = int(content[0][5])
-    overbooking = int(content[0][6])
-    capacity = int(content[0][7])
-    overBookingValue = int(content[0][8])
+    dynamic = int(content[0][6])
+    overbooking = int(content[0][7])
+    capacity = int(content[0][8])
+    overBookingValue = int(content[0][9])
     fout = open("OUTPUT/" + outputFile + str(dynamic) + "-" + str(overbooking) +
                 "-" + str(capacity) + "-" +str(overBookingValue) + ".txt", "w")
     pathFiles = filePath + "kshortestpaths.txt"
