@@ -142,8 +142,8 @@ if os.path.isfile(pathFiles) is False:
             getNumbers = re.compile("[\d]+")
             numbers = getNumbers.findall(lines)
             numbers = map(int, numbers)
-            os.system("./IanProg {0} {1} {2}".format(numbers[0], numbers[1],
-                                                     numbers[2]))
+            os.system(filePath + binary + " {0} {1} {2}".format(numbers[0],
+                                                                     numbers[1], numbers[2]))
 finPaths.close()
 #Setting demand to 0
 #Is this needed?

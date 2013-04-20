@@ -6,7 +6,7 @@
 #include "node.h"
 using namespace std;
 
-const int LINKS = 50;
+const int LINKS = 64;
 
 int *arrayptr; 
 int graph[LINKS][3];
@@ -59,7 +59,7 @@ int main(int argc, char *argv[])
 
 	if(fin.fail()) //alert user if input file could not be opened
 	{
-		cerr << "Couldn't open file 'simplegraph2.txt'";
+		cerr << "Couldn't open file 'bcube.txt'/n";
 		exit(1);
 	}
 

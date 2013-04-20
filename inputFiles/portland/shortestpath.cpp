@@ -6,7 +6,7 @@
 #include "node.h"
 using namespace std;
 
-const int LINKS = 50;
+const int LINKS = 48;
 
 int *arrayptr; 
 int graph[LINKS][3];
