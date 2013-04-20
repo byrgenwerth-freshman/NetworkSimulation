@@ -31,6 +31,7 @@ secondTimesFlagged = []
 ###############################################################################
 #Argument contols
 ###############################################################################
+
 if len(sys.argv) is 1:
     fin = getFiles("What is the name of the demand file?")
     outputFile = raw_input("What would you like to name the output file?")
@@ -46,6 +47,40 @@ if len(sys.argv) is 1:
     capacity = getInt("What value do you want your capacity to be?")
     #Overbooking value
     overBookingValue = getInt("What value do you want for overbooking?")
+elif len(sys.argv) is 2:
+    configFile = sys.argv[1]
+    print configFile
+    cfs = open(configFile, 'r')
+    content = []
+    for line in cfs:
+        print line
+    #throw out comment lines
+        if line.startswith('#'):
+            pass
+    #throw out blank lines or incomplete lines
+        elif(len(line.split()) != 9):
+            pass
+        else:
+            content.append(line.split())
+    print content
+    filePath = content[0][0]
+    print content
+    demandFile = content[0][1]
+    print demandFile
+    fin = open(filePath + demandFile, "r")
+    outputFile = content[0][2]
+    pathFile = content[0][3]
+    finPaths = open(filePath + pathFile, "r")
+    virtualNetworkFile = content[0][4]
+    finNetwork = open(filePath + virtualNetworkFile , "r")
+    dynamic = int(content[0][5])
+    overbooking = int(content[0][6])
+    capacity = int(content[0][7])
+    overBookingValue = int(content[0][8])
+    fout = open("OUTPUT/" + outputFile + str(dynamic) + "-" + str(overbooking) +
+                "-" + str(capacity) + "-" +str(overBookingValue) + ".txt", "w")
+    pathFiles = filePath + "kshortestpaths.txt"
+    topologyFile = filePath + "SampleFatTreeTopology.txt"
 elif len(sys.argv) is 9:
     demandFile = sys.argv[1]
     fin = open(demandFile, "r")
@@ -67,7 +102,7 @@ else:
 #Seting up networks(Real Network and Virtual Networks)
 ##############################################################################
 counter = 0
-getNumbers = re.compile("[\d]+")
+agetNumbers = re.compile("[\d]+")
 virtualNetworks = VirtualNetworkMGMT()
 for lines in finNetwork:
     ###########################################################################
@@ -99,7 +134,7 @@ printBreak(fout)
 ###############################################################################
 #Generating k shortest path for the network, if there is no file
 ###############################################################################
-if os.path.isfile("kshortestpaths.txt") is False:
+if os.path.isfile(pathFiles) is False:
     for lines in finPaths:
         if lines[0] is not "#":
             getNumbers = re.compile("[\d]+")
@@ -114,7 +149,7 @@ demand = 0
 ###############################################################################
 #Creating the network attributes object
 ###############################################################################
-network = Network("kshortestpaths.txt", "SampleFatTreeTopology.txt" )
+network = Network(pathFiles, topologyFile)
 print network.coef
 print network.equation
 print network.demandeq

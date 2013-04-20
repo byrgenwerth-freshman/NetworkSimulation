@@ -1,0 +1,1 @@
+/home/mattowens/Documents/gitRepos/NetworkSimulation/inputFiles/OriginalInput/ DemandFile.txt output pathsInfoFinal.txt virtualNetworks.txt 0 0 100 0
