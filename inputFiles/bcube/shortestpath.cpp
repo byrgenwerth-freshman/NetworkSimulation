@@ -4,14 +4,21 @@
 #include <string>
 #include <stdlib.h>
 #include "node.h"
+#include "node.cpp"
+
 using namespace std;
 
+//links between nodes
 const int LINKS = 64;
 
 int *arrayptr; 
+//3-tier multidimensional array
 int graph[LINKS][3];
+//3-tier multidimensional array
 int originalgraph[LINKS][3];
+//????: what is k and current k??
 int K, currentk, NODES;
+//????: flag for what?
 int FLAG=0;
 
 int readgraph(int matrix[][3], istream& fin);
@@ -44,18 +51,19 @@ int main(int argc, char *argv[])
 
         ifstream fin; //fin is to read in the graph
 	ofstream fout, ferr; 
-
-	int links;
-	nodeClass *paths;
+	
+	int links;//what is this for?
+	nodeClass *paths;//pointer to nodeClass object from node.cpp
 	//int deleted[LINKS];
 
-	int a, source, sink, nodes;
+	int a, source, sink, nodes; //what is a?
+	//what is the difference between "nodes" and const "NODES"?
 	source = atoi(argv[1]);
 	sink = atoi(argv[2]);
-	K = atoi(argv[3]);
+	K = atoi(argv[3]); //k represents number of paths?
 
 	//Change this to the topology file
-	fin.open("bcube.txt"); // open input file
+	fin.open("bcube2.txt"); // open input file
 
 	if(fin.fail()) //alert user if input file could not be opened
 	{
@@ -63,13 +71,13 @@ int main(int argc, char *argv[])
 		exit(1);
 	}
 
-	fin >> nodes;
+	fin >> nodes; //read first line of file into nodes value
 
-	NODES=nodes;
+	NODES=nodes; //assign nodes to const value NODES
 
-	paths=new nodeClass[nodes];
+	paths=new nodeClass[nodes]; //point at array of nodeClass objects
 
-	links=readgraph(graph, fin);
+	links=readgraph(graph, fin);//reads file into array
 
 	//store original graph configuration used to reset graph
 	for(int m=0; m<LINKS; m++)
@@ -81,25 +89,31 @@ int main(int argc, char *argv[])
 	}
 
        	a=source;
+
        	if(source==0)
        	{
        		return 0;
        	}
 
        	//open output streams to document results
+	//appending to end of files
        	fout.open("kshortestpaths.txt", ios::app);
        	ferr.open("kerrors.txt", ios::app);
+	
+	fout << "we can write to this"  << endl;
 
-       	//printgraph(graph, links);
+       	printgraph(graph, links);
 
        	for(currentk = 1; currentk <= K; currentk++)
        	{
 	        resetnodes(paths, nodes);
 
 	        FLAG=0;  //reset error flag
-
+		
+		//sets identities of nodes and marks source node
        		initializenodes(paths, nodes, source);
 
+		
        		shortestpath(paths, graph, source, links, nodes);
 
        		if(FLAG>0)
@@ -107,7 +121,7 @@ int main(int argc, char *argv[])
        			ferr<<"For source "<<source<<" and sink "<<sink<<", could only find "<<FLAG-1<<" paths instead of "<<K<<"."<<endl;
        			break;  //break out of otherwise infinite for loop
        		}
-
+		cout << "we're going to save to file now..." << endl;
        		printpath(paths, a, sink, fout);
 
        		deletecheapest(graph, arrayptr, links, fout);
@@ -131,9 +145,10 @@ int main(int argc, char *argv[])
 
 	delete[] arrayptr;  //avoids memory leak after printpath is called
 	delete [] paths;
+	cout << "we're going to return" << endl;
 	return 0;
 
-	/*cout << endl << "The node data is:" << endl << endl;
+	cout << endl << "The node data is:" << endl << endl;/*:
 
 	cout << setw(10) << "identity"  
 	<< setw(10) << "pathcost" 
@@ -166,15 +181,15 @@ int readgraph(int matrix[][3], istream& fin)
 void printgraph(int matrix[][3], int items)
 {
 	int i;  //i is index of row, j is index of column
-	//cout << "The graph is: " << endl;
+	cout << "The graph is: " << endl;
 	for(i=0; i<items-1; i++)  //write as many rows as recorded by filling function
 	{
-	  //        cout << matrix[i][0]
-	  //	<< "-"
-	  //		<< matrix[i][1]
-	  //	<< "  "
-	  //		<< matrix[i][2]
-	  //	<< endl;
+	          cout << matrix[i][0]
+	  	<< "-"
+	  		<< matrix[i][1]
+	  	<< "  "
+	  		<< matrix[i][2]
+	  	<< endl;
 	}
 	return;
 }
@@ -183,12 +198,15 @@ void initializenodes(nodeClass matrix[], int nodes, int source)
 {
 	int i,j;
 	j=0;
+	//iterate through nodes
 	for(i=0; i<nodes; i++)
 	{
 		j++;
 		matrix[i].setidentity(j);  //numbers the nodes
+		//mark source so we can ensure shortest path starts with that node???
 		if(j==source)
 		{
+			//what does 'a' signify??
 			matrix[i].settag('a');  
 			matrix[i].setpathcost(0);   //forces pickcheapest to pick source first
 			matrix[i].setprev(1);   //necessary to get path length to work right
@@ -247,6 +265,7 @@ bool complete(nodeClass matrix[], int nodes)
 
 void printpath(nodeClass matrix[], int start, int end, ofstream& fout)
 {
+	cout << "we're writing to the file!!" << endl;
 	end--;      //decrement to use as index
 	int i, j, nodes; 
 	nodes=matrix[end].getlength();  //number of nodes to get to last node in path
@@ -271,6 +290,7 @@ void printpath(nodeClass matrix[], int start, int end, ofstream& fout)
 		fout << arrayptr[i] << " ";
 	}  
 	fout << "| " << nodes <<endl;
+	
 }
 
 
