@@ -41,14 +41,3 @@ def cplexCapacity(model, network, coef, capacityTable):
                       "link{0}".format(network.capacity[i][0]), 0, "L")
         #Making the coeficient list empty for the next Equation                
         coef = []
-# def cplexDemandLB(model, network, coef, PathDemands):
-#     for i in range(len(network.demandeq)):
-#         for j in range(len(network.demandeq[i])):
-#         	if network.demandeq[i][j] == "Z":
-#         		coef.append(- 1 * PathDemands[i])
-#         	else:
-#         		coef.append(1.0)
-#         addConstraint(model, network.demandeq[i], coef,
-#                       "demand{0}".format(i+1), 0, "E")
-#             #Making the coeficient list empty for the next equation            
-#         coef = []
