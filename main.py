@@ -62,13 +62,10 @@ elif len(sys.argv) is 2:
             pass
         else:
             content.append(line.split())
-    print content
     filePath = content[0][0]
     print content
     binary = content[0][1]
     demandFile = content[0][2]
-    print demandFile
-
     fin = open(filePath + demandFile, "r")
     outputFile = content[0][3]
     pathFile = content[0][4]
@@ -83,6 +80,7 @@ elif len(sys.argv) is 2:
                 "-" + str(capacity) + "-" +str(overBookingValue) + ".txt", "w")
     pathFiles = filePath + "kshortestpaths.txt"
     topologyFile = filePath + "SampleFatTreeTopology.txt"
+
 elif len(sys.argv) is 9:
     demandFile = sys.argv[1]
     fin = open(demandFile, "r")
@@ -97,6 +95,7 @@ elif len(sys.argv) is 9:
     overBookingValue = int(sys.argv[8])
     fout = open("OUTPUT/" + outputFile + str(dynamic) + "-" + str(overbooking) + 
                 "-" + str(capacity) + "-" +str(overBookingValue) + ".txt", "w")
+
 else:
     wrongInputErrorMessage()
     exit(2)
@@ -152,16 +151,17 @@ demand = 0
 #Creating the network attributes object
 ###############################################################################
 network = Network(pathFiles, topologyFile)
+print "This is the Network"
 print network.coef
 print network.equation
 print network.demandeq
 print network.capacity
 #This is a test of convertToLb
-LBnetwork = network.convertToLB()
-print LBnetwork.coef
-print LBnetwork.equation
-print LBnetwork.demandeq
-print LBnetwork.capacity
+#LBnetwork = network.convertToLB()
+#print LBnetwork.coef
+#print LBnetwork.equation
+#print LBnetwork.demandeq
+#print LBnetwork.capacity
 ###############################################################################
 #Creating the  Capacity Table
 ###############################################################################
@@ -197,7 +197,7 @@ while (len(demandManager.currentDemands) is not 0
     ###########################################################################
     #Creating the CPLEX file
     ###########################################################################
-    model = createLBCPLEXmodel(LBnetwork, PathDemands, capacityTable)
+    model = createLBCPLEXmodel(network, PathDemands, capacityTable)
     #Sets up output streams
     setStream(model, "OUTPUT/cplexOut" + str(dynamic) + "-" + str(overbooking) + 
                 "-" + str(capacity) + "-" +str(overBookingValue))
@@ -258,6 +258,7 @@ while (len(demandManager.currentDemands) is not 0
     ###########################################################################
     #Update the capacity table with current dataflow
     ###########################################################################
+    print results
     capacityTable.capacityTableUpdate(results, secondLevelFlag, linkReList, id,
                                       demandManager.currentDemands)
     ###########################################################################
@@ -285,7 +286,7 @@ while (len(demandManager.currentDemands) is not 0
     capacityTable.restoreCapacity(removeList)
     #Remove the items in the remove list
     linkReList = removeExpiredLinkReList(linkReList, removeList)
-    print linkReList
+    #print linkReList
     #In the demands
     demandManager.decrementCurrentDemands()
     #Clear out the added demands for this time period

@@ -45,21 +45,21 @@ class Network:
 ###############################################################################
 #Updated on 2/12/2013
 #This function needs to be fixed
-	def convertToLB(self):
-		networkLB = Network
-		networkLB.equation = self.equation
-		for i in range(len(networkLB.equation)):
-			networkLB.coef.append(0)
-		networkLB.coef.append(1)
-		networkLB.equation.append("Z")
-		networkLB.demandeq = self.demandeq
-		networkLB.capacity = self.capacity
-		for equations in networkLB.capacity:
-			print equations
-			equations[1].append("Z")
-
-
-		return networkLB
+#	def convertToLB(self):
+#		networkLB = Network
+#		networkLB.equation = self.equation
+#		for i in range(len(networkLB.equation)):
+#			networkLB.coef.append(0)
+#		networkLB.coef.append(1)
+#		networkLB.equation.append("Z")
+#		networkLB.demandeq = self.demandeq
+#		networkLB.capacity = self.capacity
+#		for equations in networkLB.capacity:
+#			print equations
+#			equations[1].append("Z")
+#
+#
+#		return networkLB
 ###############################################################################
 
 ############################################################################## 
