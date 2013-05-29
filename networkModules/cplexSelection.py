@@ -14,18 +14,21 @@ def createSelectCPLEXmodel(network, PathDemands, capacityTable, demandManager,
     cplexDemandSel(model, network, coef, PathDemands)
     coef = []
     cplexCapacity(model, network, coef, capacityTable)
+    addBinary
     return model
 
 def convertToSelect(model, network, demandManager):
     #Create additional variables and set coeficient to 0
-    print demandManager.currentDemands
-    #for all the demand not met
-        #create a variable y
-
-    #Set all variables as binary
-    #for all the new variables
-    model.variables.set_types("variable", model.variables.type.binary)
-
+    for i in range(len(demandManager.currentDemands)):
+        print demandManager.currentDemands[i]
+        cvar = "y" + str(i + 1)
+        network.equation.append(cvar)
+        network.coef.append(0)
+        #model.variables.set_types("y" + str(i + 1), model.variables.type.binary)
+    print network.equation
+    print network.coef
+    return network
+        
 def cplexDemandSel(model, network, coef, PathDemands, demandManager, utilized):
     #Add the demands to the open groups of paths
     pass
