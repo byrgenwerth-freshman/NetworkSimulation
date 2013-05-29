@@ -20,6 +20,7 @@ from networkModules.linkReListMGMTModule import *
 from networkModules.removeListMGMTModule import *
 from networkModules.cplexLB import *
 from networkModules.cplexMin import *
+from networkModules.cplexSelection import *
 ###############################################################################
 #GLOBALS
 #Figure out what id is?
@@ -142,7 +143,7 @@ if os.path.isfile(pathFiles) is False:
             numbers = getNumbers.findall(lines)
             numbers = map(int, numbers)
             os.system(filePath + binary + " {0} {1} {2}".format(numbers[0],
-                                                                     numbers[1], numbers[2]))
+                                                                numbers[1], numbers[2]))
 finPaths.close()
 #Setting demand to 0
 #Is this needed?
@@ -197,7 +198,11 @@ while (len(demandManager.currentDemands) is not 0
     ###########################################################################
     #Creating the CPLEX file
     ###########################################################################
-    model = createLBCPLEXmodel(network, PathDemands, capacityTable)
+    #model = createLBCPLEXmodel(network, PathDemands, capacityTable)
+    model = createSelectCPLEXmodel(network, PathDemands, capacityTable,
+                                    demandManager, utilized)
+    exit()
+
     #Sets up output streams
     setStream(model, "OUTPUT/cplexOut" + str(dynamic) + "-" + str(overbooking) + 
                 "-" + str(capacity) + "-" +str(overBookingValue))

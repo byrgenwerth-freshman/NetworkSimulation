@@ -2,9 +2,10 @@
 import cplex
 
 #Constructor
-def createSelectCPLEXmodel(network, PathDemands, capacityTable, currentDemand):
+def createSelectCPLEXmodel(network, PathDemands, capacityTable, demandManager,
+                            utilized):
     model = cplex.Cplex()
-    network = convertToSelect(network, currentDemand)
+    network = convertToSelect(model, network, demandManager)
     #Need to update the equation to include the needed variables
     #Create 
     model.objective.set_sense(1)
@@ -15,12 +16,19 @@ def createSelectCPLEXmodel(network, PathDemands, capacityTable, currentDemand):
     cplexCapacity(model, network, coef, capacityTable)
     return model
 
-def convertToSelect(network, currentDemand):
+def convertToSelect(model, network, demandManager):
+    #Create additional variables and set coeficient to 0
+    print demandManager.currentDemands
+    #for all the demand not met
+        #create a variable y
 
-def cplexDemandSel():
+    #Set all variables as binary
+    #for all the new variables
+    model.variables.set_types("variable", model.variables.type.binary)
 
-    jfkda = "d3"
-
+def cplexDemandSel(model, network, coef, PathDemands, demandManager, utilized):
+    #Add the demands to the open groups of paths
+    pass
 
 def cplexCapacity(model, network, coef, capacityTable):
     for i in range(len(network.capacity)):
