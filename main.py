@@ -201,8 +201,6 @@ while (len(demandManager.currentDemands) is not 0
     #model = createLBCPLEXmodel(network, PathDemands, capacityTable)
     model = createSelectCPLEXmodel(network, PathDemands, capacityTable,
                                     demandManager, utilized)
-    exit()
-
     #Sets up output streams
     setStream(model, "OUTPUT/cplexOut" + str(dynamic) + "-" + str(overbooking) + 
                 "-" + str(capacity) + "-" +str(overBookingValue))
