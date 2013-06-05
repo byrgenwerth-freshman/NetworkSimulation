@@ -14,8 +14,7 @@ def createCPLEXmodel(network, PathDemands, capacityTable):
     coef = []
     cplexDemand(model, network, coef, PathDemands)
     #Give Cplex the capacity equations                                         
-    coef = []
-    cplexCapacity(model, network, coef, capacityTable)
+    cplexCapacity(model, network, capacityTable)
     return model
 
 def cplexDemand(model, network, coef, PathDemands):

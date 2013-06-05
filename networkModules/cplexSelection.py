@@ -74,6 +74,7 @@ def cplexDemandSel(model, network, PathDemands, demandManager, utilized):
     #Add the demands to the open groups of paths
     varMul = 1
     coef = []
+    extra = False
     for i in range(len(network.demandeq)):
         for j in range(len(network.demandeq[i])):
             coef.append(1)
@@ -84,11 +85,13 @@ def cplexDemandSel(model, network, PathDemands, demandManager, utilized):
                     cvar = "y" + str(varMul)
                     network.demandeq[i].append(cvar)
                     varMul += 1
+                extra = True
         except ValueError:
             pass
         print network.demandeq[i]
-        addConstraint(model, network.demandeq[i], coef,
-                      "demand{0}".format(i+1), PathDemands[i], "E")
+        if PathDemands[i] is not 0 or extra:
+            addConstraint(model, network.demandeq[i], coef,
+                          "demand{0}".format(i+1), PathDemands[i], "E")
         
         #Clean up equation
         try:
@@ -97,7 +100,7 @@ def cplexDemandSel(model, network, PathDemands, demandManager, utilized):
                     network.demandeq[i].pop()
         except ValueError:
             pass
-
+        extra = False
         coef = []
 ###############################################################################
 
