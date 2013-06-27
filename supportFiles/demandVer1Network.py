@@ -61,10 +61,9 @@ for network in topo:
 fout.close()
 ###############################################################################
 
-#
-fout = open("DemandFile.txt", "w")
 
 ###############################################################################
+fout = open("DemandFile.txt", "w")
 
 for i in range(int(networks)):
     while(start < int(networkDuration)):

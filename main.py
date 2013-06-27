@@ -199,9 +199,9 @@ while (len(demandManager.currentDemands) is not 0
     #Creating the CPLEX file
     ###########################################################################
     #model = createLBCPLEXmodel(network, PathDemands, capacityTable)
-    #model = createSelectCPLEXmodel(network, PathDemands, capacityTable,
-    #                                demandManager, utilized)
-    model = createCPLEXmodel(network, PathDemands, capacityTable)
+    model = createSelectCPLEXmodel(network, PathDemands, capacityTable,
+                                    demandManager, utilized, virtualNetworks)
+    #model = createCPLEXmodel(network, PathDemands, capacityTable)
     #Sets up output streams
     setStream(model, "OUTPUT/cplexOut" + str(dynamic) + "-" + str(overbooking) + 
                 "-" + str(capacity) + "-" +str(overBookingValue))
@@ -213,7 +213,9 @@ while (len(demandManager.currentDemands) is not 0
     model.write("LP/" + outputFile + str(dynamic) + "-" + str(overbooking) + 
                 "-" + str(capacity) + "-" +str(overBookingValue) + "-" + 
                 str(time) +".lp", filetype="lp")
+
     model.solve()
+    exit()
     ###########################################################################
     #Inspect Information
     ###########################################################################
