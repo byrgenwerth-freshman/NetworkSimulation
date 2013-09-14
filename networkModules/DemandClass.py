@@ -1,6 +1,6 @@
 class Demand:
-    virtualNetworkId = None
-    demandPathId = None
+    virtual_network_id = None
+    demand_path_id = None
     demand = None
     duration = None
     startTime = None
@@ -9,27 +9,27 @@ class Demand:
     #delayed variable counts number of time periods a demand is delayed
     delayed = 0
 
-    def __init__(self, virtualNetworkId, demandPathId, demand, duration,
+    def __init__(self, virtual_network_id, demand_path_id, demand, duration,
                  startTime):
-        self.virtualNetworkId = virtualNetworkId
-        self.demandPathId = demandPathId
+        self.virtual_network_id = virtual_network_id
+        self.demand_path_id = demand_path_id
         self.demand = demand
         self.duration = duration
         self.startTime = startTime
-	#self.alpha = alpha
+        #self.alpha = alpha
 
     def decrementDur(self, amount):
         self.duration = int(self.duration - amount)
 
     def discountDemand(self):
-	#discounts demand when demand is delayed 1 time period
-	self.demand = int(self.demand - self.alpha)
-	#increment delayed variable to signify additional time delay
-	self.delayed = int(self.delayed + 1)
+        #discounts demand when demand is delayed 1 time period
+    	self.demand = int(self.demand - self.alpha)
+    	#increment delayed variable to signify additional time delay
+    	self.delayed = int(self.delayed + 1)
 
     def __str__(self):
-        return ("VNID: " + str(self.virtualNetworkId) + " |DPathID: " +
-                str(self.demandPathId) + " |Demand: " + str(self.demand) +
+        return ("VNID: " + str(self.virtual_network_id) + " |DPathID: " +
+                str(self.demand_path_id) + " |Demand: " + str(self.demand) +
                 " |Duration: " + str(self.duration) + " |Start Time: " +
                 str(self.startTime) + "|Alpha: " + str(self.alpha) +
-		str(self.alpha) + " |Delayed: " + str(self.delayed))
+                str(self.alpha) + " |Delayed: " + str(self.delayed))

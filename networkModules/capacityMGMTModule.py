@@ -1,14 +1,12 @@
+###############################################################################
 import re
 from CapacityClass import *
 
 class CapacityTable:
-    capacityTable = []
+    capacity_table = []
 
-    def __init__(self, links, capacity):
-        for i in range(len(links)):
-            cap = Capacity(links[i][0], capacity, links[i][1])
-            self.capacityTable.append(cap)
-
+    def __init__(self, capacities):
+        self.capacity_table = capacities
 
     def capacityTableUpdate(self, results, secondLevelFlag, linkReList,
                             id, currentDemands):
@@ -17,7 +15,7 @@ class CapacityTable:
             #Check to see if the results are greater than 0
             if float(results[1][i]) > float(0) and secondLevelFlag is False:
                 #Grabs each line of information from the capacity table
-                for lists in self.capacityTable:
+                for lists in self.capacity_table:
                     #Search for the index value
                     try:
                         index = lists[2].index(results[0][i])
@@ -36,7 +34,7 @@ class CapacityTable:
 
         for d in currentDemands:
             print d
-            demandP = d.demandPathId + 1
+            demandP = d.demand_path_id + 1
             for i in range(len(linkReList)):
                 if len(linkReList[i]) < 4:
                     match = pathRe.search(linkReList[i][1])
@@ -48,12 +46,12 @@ class CapacityTable:
 
     def restoreCapacity(self, removeList):
         for line in removeList:
-            for i in range(len(self.capacityTable)):
-                if line[0] == self.capacityTable[i][0]:
-                    self.capacityTable[i][1] = (float(self.capacityTable[i][1])
+            for i in range(len(self.capacity_table)):
+                if line[0] == self.capacity_table[i][0]:
+                    self.capacity_table[i][1] = (float(self.capacity_table[i][1])
                                                 + float(line[2]))
-    
+
     def printCapList(self):
-        print self.capacityTable
-        for caps in self.capacityTable:
+        print self.capacity_table
+        for caps in self.capacity_table:
             caps.printCap()

@@ -1,10 +1,12 @@
 #This is a place holder
-class realNetwork:
-    
-    #Group of paths name
-    gPathName = []
+class RealNetwork:
 
-    def __init__(self, lines):
-        networkPaths = int(lines.strip())
-        for i in range(networkPaths):
-            self.gPathName.append(i)
+    #Group of paths name
+    group_path_names = []
+
+    def __init__(self, paths):
+        network_paths = paths
+        self.group_path_names = []
+
+        for i in range(network_paths):
+            self.group_path_names.append(i + 1)
