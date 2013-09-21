@@ -129,13 +129,14 @@ def originalMain(filePath, binary, fin, fout, pathFile, topologyFile, finPaths,
         load_balance_eq.solve(outputFile, dynamic, overbooking, capacity,
                                         overBookingValue, time, fout)
 
+        print "Has Solution"
         print load_balance_eq.has_solution
 
 
         #######################################################################
         #Inspect Information
         #######################################################################
-        if load_balance_eq.has_solution is False or None:
+        if load_balance_eq.has_solution is False:
             ###################################################################
             #Find new equation if solution failed
             ###################################################################
@@ -154,7 +155,10 @@ def originalMain(filePath, binary, fin, fout, pathFile, topologyFile, finPaths,
             load_balance_eq = LoadBalancingModel(network, path_demands,
                                                     capacity_table)
             setStream(load_balance_eq.model, "output")
-            load_balance_eq.solve()
+            load_balance_eq.solve(outputFile, dynamic, overbooking, capacity,
+                                        overBookingValue, time, fout)
+            if load_balance_eq.has_solution is False or None:
+                secondLevelFlag = True
             #Setting the demand back to what it was if overbooking
             if overbooking:
                 capacity = capacity - overbooking

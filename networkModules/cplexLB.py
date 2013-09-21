@@ -69,7 +69,7 @@ class LoadBalancingModel:
         try:
             solutions = self.model.solution.get_values()
             self.results = printResults(self.network, solutions, fout)
-            self.solution = True
+            self.has_solution = True
         except cplex.exceptions.CplexSolverError:
-            self.solution = False
+            self.has_solution = False
             self.results = "Failed"
