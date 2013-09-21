@@ -119,70 +119,53 @@ def originalMain(filePath, binary, fin, fout, pathFile, topologyFile, finPaths,
         #######################################################################
         load_balance_eq = LoadBalancingModel(network, path_demands,
                                                 capacity_table)
-        exit()
-        setStream(load_balance_eq.model, "OUTPUT/cplexOut" + str(dynamic) + "-" + str(overbooking) +
-                    "-" + str(capacity) + "-" +str(overBookingValue))
-        load_balance_eq.solve()
+
         #######################################################################
         #Solve equation
         #######################################################################
-        #Print problem using write(filename, filetype='mps,lp,sav')
-        load_balance_eq.model.write("LP/" + outputFile + str(dynamic) + "-" + str(overbooking) +
-                    "-" + str(capacity) + "-" +str(overBookingValue) + "-" +
-                    str(time) +".lp", filetype="lp")
+        setStream(load_balance_eq.model, "OUTPUT/cplexOut" + str(dynamic) + "-" + str(overbooking) +
+                    "-" + str(capacity) + "-" +str(overBookingValue))
 
-        load_balance_eq.model.solve(outputFile, dynamic, overbooking, capacity,
-                                        overBookingValue, time))
+        load_balance_eq.solve(outputFile, dynamic, overbooking, capacity,
+                                        overBookingValue, time, fout)
+
+        print load_balance_eq.has_solution
+
+
         #######################################################################
         #Inspect Information
         #######################################################################
-        solutions = []
-        while True:
-            try:
-                solutions = model.solution.get_values()
-                results = printResults(network, solutions, fout)
-                break
+        if load_balance_eq.has_solution is False or None:
             ###################################################################
             #Find new equation if solution failed
             ###################################################################
-            except cplex.exceptions.CplexSolverError:
-                #If you are doing dynamic allocation of paths
-                if dynamic:
-                    virtual_networks.addTempPath(utilized, demand_manager)
-                #If you are doing any overbooking
-                if overbooking:
-                    capacity = capacity + overbooking
-                print "This solution failed."
-                print "Trying alternate capacities."
-                flag = True
-                fout.write("This solution failed\n")
-                fout.write("Trying alternate solution\n")
-                path_demands = demand_manager.addUpDemands(network.demandeq)
-                load_balance_eq = LoadBalancingModel(network, path_demands,
-                                                        capacity_table)
-                setStream(load_balance_eq.model, "output")
-                load_balance_eq.model.get_problem_type()
-                load_balance_eq.model.solve()
-                #Setting the demand back to what it was if overbooking
-                if overbooking:
-                    capacity = capacity - overbooking
-                try:
-                    solutions = load_balance_eq.model.solution.get_values()
-                    reults = printResults(network, solutions, fout)
-                    break
-                #Falied with new solution, block
-                except cplex.exceptions.CplexSolverError:
-                    print "Failed with new rerouting"
-                    secondLevelFlag = True
-                break
+            #If you are doing dynamic allocation of paths
+            if dynamic:
+                virtual_networks.addTempPath(utilized, demand_manager)
+            #If you are doing any overbooking
+            if overbooking:
+                capacity = capacity + overbooking
+            print "This solution failed."
+            print "Trying alternate capacities."
+            flag = True
+            fout.write("This solution failed\n")
+            fout.write("Trying alternate solution\n")
+            path_demands = demand_manager.addUpDemands(network.demandeq)
+            load_balance_eq = LoadBalancingModel(network, path_demands,
+                                                    capacity_table)
+            setStream(load_balance_eq.model, "output")
+            load_balance_eq.solve()
+            #Setting the demand back to what it was if overbooking
+            if overbooking:
+                capacity = capacity - overbooking
         #Print the virtual network information to see if there is a change
         print virtual_networks
         fout.write(str(virtual_networks) + "\n")
         #######################################################################
         #Update the capacity table with current dataflow
         #######################################################################
-        print results
-        capacity_table.capacityTableUpdate(results, secondLevelFlag, linkReList, id,
+        print load_balance_eq.results
+        capacity_table.capacityTableUpdate(load_balance_eq.results, secondLevelFlag, linkReList, id,
                                           demand_manager.current_demands)
         #######################################################################
         #Keeping track of the amount of time the network is blocked
@@ -216,6 +199,7 @@ def originalMain(filePath, binary, fin, fout, pathFile, topologyFile, finPaths,
         #Increase the time period
         time = time + 1
         printBreak(fout)
+
     ###########################################################################
     print virtual_networks
     numAdded = 0
