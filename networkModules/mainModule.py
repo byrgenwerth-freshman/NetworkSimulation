@@ -111,9 +111,7 @@ def originalMain(filePath, binary, fin, fout, pathFile, topologyFile, finPaths,
         #######################################################################
         demand_manager.checkDemands(time)
         #Printing Demands
-        print str(demand_manager)
         path_demands = demand_manager.addUpDemands(network.demandeq)
-        print path_demands
         #######################################################################
         #Creating the CPLEX file
         #######################################################################
@@ -126,11 +124,9 @@ def originalMain(filePath, binary, fin, fout, pathFile, topologyFile, finPaths,
         setStream(load_balance_eq.model, "OUTPUT/cplexOut" + str(dynamic) + "-" + str(overbooking) +
                     "-" + str(capacity) + "-" +str(overBookingValue))
 
+        print "Solving Problem"
         load_balance_eq.solve(outputFile, dynamic, overbooking, capacity,
                                         overBookingValue, time, fout)
-
-        print "Has Solution"
-        print load_balance_eq.has_solution
 
 
         #######################################################################
@@ -157,7 +153,7 @@ def originalMain(filePath, binary, fin, fout, pathFile, topologyFile, finPaths,
             setStream(load_balance_eq.model, "output")
             load_balance_eq.solve(outputFile, dynamic, overbooking, capacity,
                                         overBookingValue, time, fout)
-            if load_balance_eq.has_solution is False or None:
+            if load_balance_eq.has_solution is False:
                 secondLevelFlag = True
             #Setting the demand back to what it was if overbooking
             if overbooking:
@@ -203,7 +199,6 @@ def originalMain(filePath, binary, fin, fout, pathFile, topologyFile, finPaths,
         #Increase the time period
         time = time + 1
         printBreak(fout)
-
     ###########################################################################
     print virtual_networks
     numAdded = 0

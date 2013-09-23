@@ -25,8 +25,6 @@ from networkModules.mainModule import *
 ###############################################################################
 
 #GLOBALS
-#Figure out what id is?
-id = 0
 flag = False
 timesFlagged = []
 secondLevelFlag = False

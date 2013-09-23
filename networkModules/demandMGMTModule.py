@@ -10,6 +10,10 @@ class DemandMGMT:
     added_demands = []
 
     def __init__(self, init_demands):
+        self.waiting_demands = []
+        self.current_demands = []
+        self.added_demands = []
+
         self.waiting_demands = copy.deepcopy(init_demands)
 
     def checkDemands(self, time):
