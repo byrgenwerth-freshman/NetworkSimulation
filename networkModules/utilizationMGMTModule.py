@@ -1,22 +1,23 @@
 import sets
 
-class utilizationSet:
+class UtilizationSet:
 
     #Three values
-    notUtilized = []
-    partUtilized = []
-    fullUtilized = []
+    not_utilized = []
+    part_utilized = []
+    full_utilized = []
 
     def __init__(self, realNetwork, virtualNetworks):
-        self.notUtilized = realNetwork
-        for sets in virtualNetworks.vnContainer:
-            self.notUtilized = list(set(sets.originalPaths) ^ set(self.notUtilized))
-        self.partUtilized = list(set(self.notUtilized) ^ set(realNetwork))
+        #self.not_utilized = realNetwork.group_path_names
+        for vn in virtualNetworks.vn_container:
+            self.part_utilized = list(set(self.part_utilized) | set(vn.original_paths))
+        self.not_utilized = list(set(realNetwork.group_path_names) - set(self.part_utilized))
+
 
     def __str__(self):
-        return ("Not Utilized:\n" + str(self.notUtilized) + "\n" +
-                "Part Utilized\n" + str(self.partUtilized) + "\n" +
-                "Full Utilized\n" + str(self.fullUtilized)) 
-        
-        
- 
+        return ("Not Utilized:\n" + str(self.not_utilized) + "\n" +
+                "Part Utilized\n" + str(self.part_utilized) + "\n" +
+                "Full Utilized\n" + str(self.full_utilized))
+
+
+

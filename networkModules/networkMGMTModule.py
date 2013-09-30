@@ -1,8 +1,8 @@
-############################################################################## 
+##############################################################################
 #networkMGMTModule.py by Matt Owens
 #Updated: 1/9/2013
 #This is a file that contains the code for my function that takes a graph and
-#converts it into a different list that can be used by cplex. I've broken the 
+#converts it into a different list that can be used by cplex. I've broken the
 #function in to other functions to make the code easier to read.
 ###############################################################################
 import re
@@ -37,32 +37,7 @@ class Network:
 		self.coef = self.getCoefEq(self.equation, self.capacity)
 ###############################################################################
 
-###############################################################################
-#This function takes the output file of Ian Ramsey's shortest path program 
-#and the graph file used in that program and makes them so that cplex
-#can use that information.
-#This is for load balancing
-###############################################################################
-#Updated on 2/12/2013
-#This function needs to be fixed
-#	def convertToLB(self):
-#		networkLB = Network
-#		networkLB.equation = self.equation
-#		for i in range(len(networkLB.equation)):
-#			networkLB.coef.append(0)
-#		networkLB.coef.append(1)
-#		networkLB.equation.append("Z")
-#		networkLB.demandeq = self.demandeq
-#		networkLB.capacity = self.capacity
-#		for equations in networkLB.capacity:
-#			print equations
-#			equations[1].append("Z")
-#
-#
-#		return networkLB
-###############################################################################
-
-############################################################################## 
+##############################################################################
 #This function takes the makes the variable name, the minimization function,
 # and the demand equations.
 ###############################################################################
@@ -103,8 +78,7 @@ class Network:
 						var = "x{0}_{1}".format(smdest,
 									p)
 						equation.append(var)
-						demandeq[smdest - 1].append(var
-									    )
+						demandeq[smdest - 1].append(var)
 						bteq[i - 1].append(var)
 					else:
 						smdest = smdest + 1
@@ -120,7 +94,7 @@ class Network:
 				#Get path
 				get_allnumbers = re.compile("(\d+\s)+")
 				results = get_allnumbers.match(part2)
-				path =  results.group()
+				path = results.group()
 				ex = "x " + path
 				bteq[i - 1].append(ex)
 				bteq.append([])
@@ -139,7 +113,7 @@ class Network:
 	def getCapacityEq(self, graphfile,bteq):
 		file = open(graphfile,"r")
 		all_links = file.readlines()
-		#List for the capacity links    
+		#List for the capacity links
 		capacity = [[]]
 		#Variable to check if the
 		inthere = -1
@@ -161,7 +135,7 @@ class Network:
 					var1 = swap
 				totvar = var + "-" + var1
 				inthere = -1
-				#See if the link is in the list 
+				#See if the link is in the list
 				for k in range(len(capacity) - 1):
 					if (capacity[k][0].find(totvar)
 					    is not -1):
@@ -176,7 +150,7 @@ class Network:
 					capacity[numcapeq][0] = totvar
 					capacity[numcapeq].append([])
 					capacity[numcapeq][1] = []
-					#Putting the variavle in the list    
+					#Putting the variavle in the list
 					capacity[numcapeq][1].append(bteq[i][0]
 								     )
 					numcapeq = numcapeq + 1
@@ -202,7 +176,7 @@ class Network:
 				coef[theco] = coef[theco] + 1
 		return coef
 ###############################################################################
-#Print Network file 
+#Print Network file
 #This needs to be fixed 2/12/2013
 	def printNetwork(self):
 	    for i in range(len(network)):
