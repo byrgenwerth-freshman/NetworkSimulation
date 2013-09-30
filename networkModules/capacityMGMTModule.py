@@ -4,6 +4,7 @@ from CapacityClass import *
 
 class CapacityTable:
     capacity_table = []
+    links_to_remove = []
 
     def __init__(self, capacities):
         self.capacity_table = capacities
@@ -47,12 +48,32 @@ class CapacityTable:
         else:
             pass
 
-    def restoreCapacity(self, removeList):
-        for line in removeList:
+    def restoreCapacity(self):
+        #Decrement Links to remove
+        for i in range(len(self.links_to_remove)):
+            #Decrease the duration of capacity changes.
+                if len(self.links_to_remove[i]) > 3:
+                    self.links_to_remove[i][3] = self.links_to_remove[i][3] - 1
+
+        #Create Remove List
+        remove_list = []
+        for i in range(len(self.links_to_remove)):
+            if len(self.links_to_remove[i]) > 3:
+                if self.links_to_remove[i][3] <= 0:
+                    remove_list.append(self.links_to_remove[i])
+
+
+        #Restore Capacities
+        for line in remove_list:
             for i in range(len(self.capacity_table)):
                 if line[0] == self.capacity_table[i][0]:
                     self.capacity_table[i][1] = (float(self.capacity_table[i][1])
                                                 + float(line[2]))
+
+
+        #Remove expired links
+        for i in range(len(remove_list)):
+            self.links_to_remove.remove(remove_list[i])
 
     def printCapList(self):
         print self.capacity_table

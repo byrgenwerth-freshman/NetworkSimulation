@@ -11,15 +11,6 @@ from Test.UtilizationSetTest import *
 from Test.VirtualNetworkMGMTTest import *
 from Test.VirtualNetworkTest import *
 
-###############################################################################
-# 1 *---* 3
-#    \ /
-#     * 2
-# Base Graph
-#
-# Path
-###############################################################################
-
 def main():
     unittest.main()
 

@@ -10,3 +10,6 @@ class CapacityTableTest(unittest.TestCase):
         capacities.append(capacity)
     capacity_table = CapacityTable(capacities)
     self.assertEqual(capacity_table.capacity_table, capacities)
+
+  def test_restoreCapacity(self):
+    assert False

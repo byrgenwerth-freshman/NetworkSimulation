@@ -10,8 +10,6 @@ from networkModules.virtualNetworkMGMTModule import *
 from networkModules.networkMGMTModule import *
 from networkModules.realNetworkMGMTModule import *
 from networkModules.utilizationMGMTModule import *
-from networkModules.linkReListMGMTModule import *
-from networkModules.removeListMGMTModule import *
 from networkModules.cplexLB import *
 from networkModules.cplexMin import *
 from networkModules.cplexSelection import *
@@ -121,8 +119,9 @@ def originalMain(filePath, binary, fin, fout, pathFile, topologyFile, finPaths,
         #######################################################################
         #Solve equation
         #######################################################################
-        setStream(load_balance_eq.model, "OUTPUT/cplexOut" + str(dynamic) + "-" + str(overbooking) +
-                    "-" + str(capacity) + "-" +str(overBookingValue))
+        setStream(load_balance_eq.model, "OUTPUT/cplexOut" + str(dynamic) + "-"
+                    + str(overbooking) + "-" + str(capacity) + "-"
+                    + str(overBookingValue))
 
         print "Solving Problem"
         load_balance_eq.solve(outputFile, dynamic, overbooking, capacity,
@@ -165,8 +164,9 @@ def originalMain(filePath, binary, fin, fout, pathFile, topologyFile, finPaths,
         #Update the capacity table with current dataflow
         #######################################################################
         print load_balance_eq.results
-        capacity_table.capacityTableUpdate(load_balance_eq.results, secondLevelFlag, linkReList, id,
-                                          demand_manager.current_demands)
+        capacity_table.capacityTableUpdate(load_balance_eq.results,
+                                            secondLevelFlag, linkReList, id,
+                                            demand_manager.current_demands)
         #######################################################################
         #Keeping track of the amount of time the network is blocked
         #######################################################################
@@ -186,12 +186,13 @@ def originalMain(filePath, binary, fin, fout, pathFile, topologyFile, finPaths,
         #Decrease the duration
         #######################################################################
         #This checks to decrease the duration of the of the capacity changes.
-        linkReList = decrementLinkReList(linkReList)
-        removeList = createRemoveList(linkReList)
+        #linkReList = decrementLinkReList(linkReList)
+        #createRemoveList(linkReList)
+        #exit()
         #Add the capacity decreases back
-        capacity_table.restoreCapacity(removeList)
+        capacity_table.restoreCapacity()
         #Remove the items in the remove list
-        linkReList = removeExpiredLinkReList(linkReList, removeList)
+        #linkReList = removeExpiredLinkReList(linkReList, removeList)
         #print linkReList
         #In the demands
         demand_manager.decrementCurrentDemands()

@@ -16,8 +16,6 @@ from networkModules.virtualNetworkMGMTModule import *
 from networkModules.networkMGMTModule import *
 from networkModules.realNetworkMGMTModule import *
 from networkModules.utilizationMGMTModule import *
-from networkModules.linkReListMGMTModule import *
-from networkModules.removeListMGMTModule import *
 from networkModules.cplexLB import *
 from networkModules.cplexMin import *
 from networkModules.cplexSelection import *
