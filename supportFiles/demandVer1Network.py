@@ -1,7 +1,12 @@
+###############################################################################
+
+###############################################################################
 import sys
 import random
 import math
+###############################################################################
 
+###############################################################################
 lamb = 2.7
 #The number of virtualized networks
 networks = int(sys.argv[1])
@@ -17,6 +22,9 @@ demand = sys.argv[5]
 duration = sys.argv[6]
 #Interval Arrival time
 interArrivalTime = sys.argv[7]
+###############################################################################
+
+###############################################################################
 #Initial time of zero
 start = 0
 #List that holds the topology
@@ -25,8 +33,10 @@ topo = []
 for i in range(networks):
     topo.append([])
 print topo
+###############################################################################
 
-#
+
+###############################################################################
 for i in range(len(topo)):
     while len(topo[i]) is not 4:
         test = True 
@@ -49,11 +59,12 @@ for network in topo:
     fout.write("\n")
 
 fout.close()
+###############################################################################
 
-#
+
+###############################################################################
 fout = open("DemandFile.txt", "w")
 
-#
 for i in range(int(networks)):
     while(start < int(networkDuration)):
         #(VN Path Demand Duration Start_Time)
@@ -69,3 +80,5 @@ for i in range(int(networks)):
     networkDuration = networkDuration + start
 
 fout.close()
+###############################################################################
+

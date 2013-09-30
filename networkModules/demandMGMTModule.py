@@ -1,72 +1,79 @@
 #Also keep track of when demands are met and when they are not.
 import re
+import copy
+
 from DemandClass import *
 
 class DemandMGMT:
-    waitingDemands = []
-    currentDemands = []
-    addedDemands = []
+    waiting_demands = []
+    current_demands = []
+    added_demands = []
 
-    def __init__(self, fin):
-        for lines in fin:
-            if lines[0] is not "#":
-                getNumbers = re.compile("[\d]+")
-                numbers = getNumbers.findall(lines)
-                numbers = Demand(int(numbers[0]), int(numbers[1]),
-                                 int(numbers[2]), int(numbers[3]),
-                                 int(numbers[4]))
-                self.waitingDemands.append(numbers)
-        
-    def demandCheckCurrent(self, time):
-        for d in range(len(self.waitingDemands)):
-            if time is self.waitingDemands[d].startTime:
-                self.currentDemands.append(self.waitingDemands[d])
- 
-    def getAddedDemands(self, time):
-        for d in range(len(self.waitingDemands)):
-            if time is self.waitingDemands[d].startTime:
-                self.addedDemands.append(self.waitingDemands[d])
+    def __init__(self, init_demands):
+        self.waiting_demands = []
+        self.current_demands = []
+        self.added_demands = []
 
-    def demandCheckWaiting(self, time):
+        self.waiting_demands = copy.deepcopy(init_demands)
+
+    def checkDemands(self, time):
+        self.added_demands = []
+        for d in range(len(self.waiting_demands)):
+            if time >= self.waiting_demands[d].startTime:
+                self.current_demands.append(self.waiting_demands[d])
         rmList = []
-        for d in range(len(self.waitingDemands)):
-            if time is self.waitingDemands[d].startTime:
-                rmList.append(self.waitingDemands[d])
+        for d in range(len(self.waiting_demands)):
+            if time >= self.waiting_demands[d].startTime:
+                rmList.append(self.waiting_demands[d])
         for a in range(len(rmList)):
-                self.waitingDemands.remove(rmList[a])
+            self.waiting_demands.remove(rmList[a])
+        for d in range(len(self.current_demands)):
+            if time is self.current_demands[d].startTime:
+                self.added_demands.append(self.current_demands[d])
+
+    def addUpDemands(self, path):
+        path_demands = []
+        demand = 0
+        for i in range(len(path)):
+            for j in range(len(self.current_demands)):
+                if self.current_demands[j].demand_path_id == i:
+                    demand = demand + self.current_demands[j].demand
+            path_demands.append(demand)
+            demand = 0
+        return path_demands
 
     def decrementCurrentDemands(self):
-        for i in range(len(self.currentDemands)):
-            self.currentDemands[i].decrementDur(1)
-        self.currentDemands = [x for x in self.currentDemands
+        for i in range(len(self.current_demands)):
+            self.current_demands[i].decrementDur(1)
+        self.current_demands = [x for x in self.current_demands
                                if x.duration is not 0]
 
     def clearAddedDemands(self):
-        self.addedDemands = []
+        self.added_demands = []
 
     def printCurrentDemands(self):
         print "Current Demands"
-        for demands in self.currentDemands:
+        for demands in self.current_demands:
             print str(demands)
-    
+
     def printWaitingDemands(self):
         print "Waiting Demands"
-        for demands in self.waitingDemands:
+        for demands in self.waiting_demands:
             print str(demands)
 
     def printAddedDemands(self):
         print "Added Demands"
-        for demands in self.addedDemands:
+        for demands in self.added_demands:
             print str(demands)
 
     def __str__(self):
         string = "Current Demands:\n"
-        for demands in self.currentDemands:
+        for demands in self.current_demands:
             string = string + str(demands) + "\n"
         string = string + "Added Demands:\n"
-        for demands in self.addedDemands:
+        for demands in self.added_demands:
             string = string + str(demands) + "\n"
         string = string + "Waiting Demands:\n"
-        for demands in self.waitingDemands:
+        for demands in self.waiting_demands:
             string = string + str(demands) + "\n"
         return string
