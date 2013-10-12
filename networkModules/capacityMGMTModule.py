@@ -79,3 +79,14 @@ class CapacityTable:
         print self.capacity_table
         for caps in self.capacity_table:
             caps.printCap()
+
+    def addOverbooking(self, overbooking_value):
+        for i in range(len(self.capacity_table)):
+            self.capacity_table[i].capacity = self.capacity_table[i].capacity + overbooking_value
+            print self.capacity_table[i].capacity
+
+    def removeOverbooking(self, overbooking_value):
+        for i in range(len(self.capacity_table)):
+            self.capacity_table[i].capacity = self.capacity_table[i].capacity - overbooking_value
+            print self.capacity_table[i].capacity
+

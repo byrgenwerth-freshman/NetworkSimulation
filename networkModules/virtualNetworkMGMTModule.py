@@ -23,16 +23,7 @@ class VirtualNetworkMGMT:
                 self.vn_container[vn_number].added_paths.append(path)
                 #Change the path of the demand to new path
                 location = demandManager.current_demands.index(demandManager.added_demands[i])
-                demandManager.current_demands[location].demandPathId = path
-                #print self
-        # print "Virtual Network"
-        # print self
-        # print "Utilized Paths"
-        # print utilizationSet.part_utilized
-        # print "Not Utilzed Paths"
-        # print utilizationSet.not_utilized
-        # print demandManager.printAddedDemands()
-        # print demandManager.printCurrentDemands()
+                demandManager.current_demands[location].demand_path_id = path
 
     def __str__(self):
         string = ""

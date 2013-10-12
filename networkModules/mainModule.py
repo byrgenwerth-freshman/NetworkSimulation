@@ -127,7 +127,9 @@ def originalMain(filePath, binary, fin, fout, pathFile, topologyFile, finPaths,
         load_balance_eq.solve(outputFile, dynamic, overbooking, capacity,
                                         overBookingValue, time, fout)
 
-
+        print dynamic
+        print overbooking
+        # exit()
         #######################################################################
         #Inspect Information
         #######################################################################
@@ -136,11 +138,13 @@ def originalMain(filePath, binary, fin, fout, pathFile, topologyFile, finPaths,
             #Find new equation if solution failed
             ###################################################################
             #If you are doing dynamic allocation of paths
-            if dynamic:
+            if dynamic == 1:
                 virtual_networks.addTempPath(utilized, demand_manager)
             #If you are doing any overbooking
-            if overbooking:
-                capacity = capacity + overbooking
+            if overbooking == 1:
+                #capacity = capacity + overBookingValue
+                print capacity
+                capacity_table.addOverbooking(overBookingValue)
             print "This solution failed."
             print "Trying alternate capacities."
             flag = True
@@ -155,8 +159,8 @@ def originalMain(filePath, binary, fin, fout, pathFile, topologyFile, finPaths,
             if load_balance_eq.has_solution is False:
                 secondLevelFlag = True
             #Setting the demand back to what it was if overbooking
-            if overbooking:
-                capacity = capacity - overbooking
+            if overbooking == 1:
+                capacity_table.removeOverbooking(overBookingValue)
         #Print the virtual network information to see if there is a change
         print virtual_networks
         fout.write(str(virtual_networks) + "\n")
@@ -206,8 +210,8 @@ def originalMain(filePath, binary, fin, fout, pathFile, topologyFile, finPaths,
     for i in range(len(virtual_networks.vn_container)):
         numAdded = numAdded + len(virtual_networks.vn_container[i].added_paths)
     print numAdded
-    print "Initial Blocks Times"
-    print timesFlagged
+    #print "Initial Blocks Times"
+    #print timesFlagged
     print "Initial Number of Blocks"
     print len(timesFlagged)
     demandsBlocked = 0
@@ -216,8 +220,8 @@ def originalMain(filePath, binary, fin, fout, pathFile, topologyFile, finPaths,
     print demandsBlocked
     fout.write(str(timesFlagged) + "\n")
     fout.write(str(len(timesFlagged)) + "\n")
-    print "Secondary Block Times"
-    print secondTimesFlagged
+    #print "Secondary Block Times"
+    #print secondTimesFlagged
     print "Secondary Number of Blocks"
     print len(secondTimesFlagged)
     demandsBlocked = 0
