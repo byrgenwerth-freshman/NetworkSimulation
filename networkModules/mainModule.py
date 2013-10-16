@@ -127,9 +127,6 @@ def originalMain(filePath, binary, fin, fout, pathFile, topologyFile, finPaths,
         load_balance_eq.solve(outputFile, dynamic, overbooking, capacity,
                                         overBookingValue, time, fout)
 
-        print dynamic
-        print overbooking
-        # exit()
         #######################################################################
         #Inspect Information
         #######################################################################
@@ -143,7 +140,6 @@ def originalMain(filePath, binary, fin, fout, pathFile, topologyFile, finPaths,
             #If you are doing any overbooking
             if overbooking == 1:
                 #capacity = capacity + overBookingValue
-                print capacity
                 capacity_table.addOverbooking(overBookingValue)
             print "This solution failed."
             print "Trying alternate capacities."
@@ -161,16 +157,13 @@ def originalMain(filePath, binary, fin, fout, pathFile, topologyFile, finPaths,
             #Setting the demand back to what it was if overbooking
             if overbooking == 1:
                 capacity_table.removeOverbooking(overBookingValue)
-        #Print the virtual network information to see if there is a change
-        print virtual_networks
         fout.write(str(virtual_networks) + "\n")
         #######################################################################
         #Update the capacity table with current dataflow
         #######################################################################
-        print load_balance_eq.results
         capacity_table.capacityTableUpdate(load_balance_eq.results,
-                                            secondLevelFlag, linkReList, id,
-                                            demand_manager.current_demands)
+                                            secondLevelFlag,
+                                            demand_manager)
         #######################################################################
         #Keeping track of the amount of time the network is blocked
         #######################################################################
@@ -189,16 +182,7 @@ def originalMain(filePath, binary, fin, fout, pathFile, topologyFile, finPaths,
         #######################################################################
         #Decrease the duration
         #######################################################################
-        #This checks to decrease the duration of the of the capacity changes.
-        #linkReList = decrementLinkReList(linkReList)
-        #createRemoveList(linkReList)
-        #exit()
-        #Add the capacity decreases back
         capacity_table.restoreCapacity()
-        #Remove the items in the remove list
-        #linkReList = removeExpiredLinkReList(linkReList, removeList)
-        #print linkReList
-        #In the demands
         demand_manager.decrementCurrentDemands()
         #Clear out the added demands for this time period
         #Increase the time period

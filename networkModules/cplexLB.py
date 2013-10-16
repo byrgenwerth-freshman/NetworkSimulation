@@ -8,7 +8,6 @@ class LoadBalancingModel:
     def __init__(self, network, path_demand, capacity_table):
         #Convert Equation to LB
         self.model = None
-        print self.model
         self.network = network
         self.network.coef = []
         if not "z" in self.network.equation:
@@ -16,8 +15,6 @@ class LoadBalancingModel:
                 self.network.coef.append(0)
             self.network.coef.append(1)
             self.network.equation.append("z")
-        print self.network.equation
-        print self.network.coef
         for i in range(len(self.network.capacity)):
             if not "z" in self.network.capacity[i][1]:
                 self.network.capacity[i][1].append("z")
@@ -28,10 +25,6 @@ class LoadBalancingModel:
         #Setting it as minimiztion problem
         self.model.objective.set_sense(1)
         #Give Cplex the minimization equation
-        print len(self.network.equation)
-        print self.network.equation
-        print len(self.network.coef)
-        print self.network.coef
         self.model.variables.add(names = self.network.equation, obj = self.network.coef)
         #Give Cplex the demand equations
         coef = []

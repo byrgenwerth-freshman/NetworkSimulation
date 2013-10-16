@@ -9,10 +9,11 @@ class Capacity:
         self.list_of_paths = list_of_paths
 
 
-    def printCap(self):
-        print self
-        print "The Link: " + str(self.link)
-        print "The Capacity: " + str(self.capacity)
-        print "List of Paths: " + str(self.list_of_paths)
+    def __str__(self):
+        total = ""
+        total += "The Link: " + str(self.link) + "\n"
+        total += "The Capacity: " + str(self.capacity) + "\n"
+        total += "List of Paths: " + str(self.list_of_paths) + "\n\n"
+        return total
 
 
