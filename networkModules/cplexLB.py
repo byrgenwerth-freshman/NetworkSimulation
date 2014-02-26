@@ -15,6 +15,10 @@ class LoadBalancingModel:
                 self.network.coef.append(0)
             self.network.coef.append(1)
             self.network.equation.append("z")
+        else:
+            for i in range(len(self.network.equation) - 1):
+                self.network.coef.append(0)
+            self.network.coef.append(1)
         for i in range(len(self.network.capacity)):
             if not "z" in self.network.capacity[i][1]:
                 self.network.capacity[i][1].append("z")
