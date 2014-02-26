@@ -1,0 +1,7 @@
+OUTPUT/
+LP/
+inputFiles
+networkModules/*.pyc
+output.err
+output.log
+output.res
