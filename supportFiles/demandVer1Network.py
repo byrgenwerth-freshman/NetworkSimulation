@@ -20,8 +20,12 @@ path = sys.argv[4]
 demand = sys.argv[5]
 #How long the demand last
 duration = sys.argv[6]
+
 #Interval Arrival time
 interArrivalTime = sys.argv[7]
+
+file_number = sys.argv[8]
+
 ###############################################################################
 
 ###############################################################################
@@ -39,7 +43,7 @@ print topo
 ###############################################################################
 for i in range(len(topo)):
     while len(topo[i]) is not 4:
-        test = True 
+        test = True
         number = random.randint(0, int(path) - 1)
         for j in range(len(topo)):
             for k in range(len(topo[j])):
@@ -48,7 +52,7 @@ for i in range(len(topo)):
         if test is True:
             topo[i].append(number)
 print topo
-fout = open("virtualNetworks.txt", "w")
+fout = open("virtualNetworks" + file_number + ".txt", "w")
 fout.write(path)
 fout.write("\n")
 
@@ -63,7 +67,7 @@ fout.close()
 
 
 ###############################################################################
-fout = open("DemandFile.txt", "w")
+fout = open("DemandFile" + file_number + ".txt", "w")
 
 for i in range(int(networks)):
     while(start < int(networkDuration)):
