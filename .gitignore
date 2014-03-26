@@ -5,3 +5,4 @@ networkModules/*.pyc
 output.err
 output.log
 output.res
+supportFiles/._run_experiment.py

@@ -72,7 +72,7 @@ elif len(sys.argv) is 2:
     overbooking = int(content[0][7])
     capacity = int(content[0][8])
     overBookingValue = int(content[0][9])
-    fout = open("OUTPUT/" + outputFile + str(dynamic) + "-" + str(overbooking) +
+    fout = open("/home/mattowens/Documents/gitRepos/NetworkSimulation/OUTPUT/" + outputFile + str(dynamic) + "-" + str(overbooking) +
                 "-" + str(capacity) + "-" +str(overBookingValue) + ".txt", "w")
     pathFiles = filePath + "kshortestpaths.txt"
     topologyFile = filePath + "SampleFatTreeTopology.txt"

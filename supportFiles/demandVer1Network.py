@@ -24,8 +24,6 @@ duration = sys.argv[6]
 #Interval Arrival time
 interArrivalTime = sys.argv[7]
 
-file_number = sys.argv[8]
-
 ###############################################################################
 
 ###############################################################################
@@ -52,7 +50,7 @@ for i in range(len(topo)):
         if test is True:
             topo[i].append(number)
 print topo
-fout = open("virtualNetworks" + file_number + ".txt", "w")
+fout = open("virtualNetworks" + ".txt", "w")
 fout.write(path)
 fout.write("\n")
 
@@ -67,7 +65,7 @@ fout.close()
 
 
 ###############################################################################
-fout = open("DemandFile" + file_number + ".txt", "w")
+fout = open("DemandFile" + ".txt", "w")
 
 for i in range(int(networks)):
     while(start < int(networkDuration)):
