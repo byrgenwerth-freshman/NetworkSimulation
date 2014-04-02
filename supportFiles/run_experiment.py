@@ -25,7 +25,7 @@ for i in range(10):
                             str(10) +
                             ".txt")
             print file_name
-            os.system("python main.py " + file_name)
+            os.system("python " + PATH + "main.py " + file_name)
           else:
             file_name = (   curr_path +
                             "config_file-" +

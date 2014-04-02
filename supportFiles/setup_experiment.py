@@ -6,19 +6,25 @@ import os
 PATH = "/home/mattowens/Documents/gitRepos/NetworkSimulation/"
 outputFiles = PATH + "OUTPUT/"
 inputFiles =  PATH + "inputFiles/"
+lpFiles = PATH + "LP/"
 
 
 folder = "experiment" + str(time.strftime("%m%d%Y")) + "/"
 os.system("mkdir " + inputFiles + folder)
 os.system("mkdir " + outputFiles + folder)
+os.system("mkdir " + lpFiles + folder)
 
 
 for i in range(10):
   # Make Path
   path = inputFiles + folder + str(i) + "/"
   outputPath = outputFiles + folder + str(i) + "/"
+  lpPath = lpFiles + folder + str(i) + "/"
+
   os.system("mkdir " + path)
   os.system("mkdir " + outputPath)
+  os.system("mkdir " + lpPath)
+
 
   # Generate Demand
   command = "python " + PATH + "supportFiles/demandVer1Network.py 5 0 100 64 30 25 4 "
@@ -30,9 +36,10 @@ for i in range(10):
     print "\n\n"
     curr_path = path + str(j) + "/"
     curr_output_path = outputPath + str(j) + "/"
+    curr_lp_path = lpPath + str(j) + "/"
     os.system("mkdir " + curr_path)
     os.system("mkdir " + curr_output_path)
-
+    os.system("mkdir " + curr_lp_path)
 
     #Copy files
     os.system("cp " + inputFiles + "OriginalInput/IanProg"  + " " + curr_path)

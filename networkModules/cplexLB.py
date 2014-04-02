@@ -58,7 +58,7 @@ class LoadBalancingModel:
 
     def solve(self, outputFile, dynamic, overbooking, capacity, overBookingValue, time, fout):
         self.model.get_problem_type()
-        self.model.write("LP/" + outputFile + str(dynamic) + "-" + str(overbooking) +
+        self.model.write("/home/mattowens/Documents/gitRepos/NetworkSimulation/LP/" + outputFile + str(dynamic) + "-" + str(overbooking) +
                     "-" + str(capacity) + "-" +str(overBookingValue) + "-" +
                     str(time) +".lp", filetype="lp")
         solutions = []

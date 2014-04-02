@@ -119,10 +119,6 @@ def originalMain(filePath, binary, fin, fout, pathFile, topologyFile, finPaths,
         #######################################################################
         #Solve equation
         #######################################################################
-        setStream(load_balance_eq.model, "OUTPUT/cplexOut" + str(dynamic) + "-"
-                    + str(overbooking) + "-" + str(capacity) + "-"
-                    + str(overBookingValue))
-
         print "Solving Problem"
         load_balance_eq.solve(outputFile, dynamic, overbooking, capacity,
                                         overBookingValue, time, fout)
@@ -202,7 +198,7 @@ def originalMain(filePath, binary, fin, fout, pathFile, topologyFile, finPaths,
     for i in range(len(timesFlagged)):
         demandsBlocked = demandsBlocked + len(timesFlagged[i][1])
     print demandsBlocked
-    fout.write(str(timesFlagged) + "\n")
+    #fout.write(str(timesFlagged) + "\n")
     fout.write(str(len(timesFlagged)) + "\n")
     #print "Secondary Block Times"
     #print secondTimesFlagged
@@ -212,7 +208,7 @@ def originalMain(filePath, binary, fin, fout, pathFile, topologyFile, finPaths,
     for i in range(len(secondTimesFlagged)):
         demandsBlocked = demandsBlocked+ len(secondTimesFlagged[i][1])
     print demandsBlocked
-    fout.write(str(secondTimesFlagged) + "\n")
+    #fout.write(str(secondTimesFlagged) + "\n")
     fout.write(str(len(secondTimesFlagged)) + "\n")
     for line in capacity_table.capacity_table:
         print line.capacity
